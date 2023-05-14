@@ -2,9 +2,17 @@ name: CI
 
 on:
   push:
-    branches: [main, release, test, dev]
+    branches: 
+      - main
+      - release
+      - test
+      - dev
   pull_request:
-    branches: [main, release, test, dev]
+    branches:
+      - main
+      - release
+      - test
+      - dev
 
 jobs: 
   build:
@@ -16,14 +24,17 @@ jobs:
         node-version: [16.x, 18.x]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: action/setup-node@v1
+      uses: action/setup-node@v3
       with: 
         node-version: ${{ matrix.node-version }}
     - name: npm install
       run: |
         npm install
+    - name: npm test
+      run: |
+        npm test --if-present
     - name: Add remote origin
       run: |
         git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
