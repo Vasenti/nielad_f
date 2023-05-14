@@ -16,7 +16,6 @@ on:
 
 jobs: 
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -25,7 +24,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: akhileshns/heroku-deploy@v3.12.14
+    - uses: akhileshns/heroku-deploy@v3.12.14
       with:
         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
         heroku_app_name: ${{ secrets.HEROKU_APP_CI_NAME }}
